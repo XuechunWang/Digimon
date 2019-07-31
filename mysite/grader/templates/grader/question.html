@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block breadcrumb %}
+  <li class="breadcrumb-item active"><a href="{% url 'index' %}">主页</a></li>
+  <li class="breadcrumb-item active">作文题目 {{ question.set }}</li>
+{% endblock %}
+{% block content %}
+{% if question %}
+    <h1>作文题目 {{ question.set }}</h1>
+    <p class="text-justify">{{ question.question_title }}</p>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        <button type="submit" class="btn btn-success">给我打分!</button>
+      </form>
+
+{% else %}
+    <h1>Error</h1>
+{% endif %}
+{% endblock %}
